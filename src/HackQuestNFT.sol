@@ -13,8 +13,7 @@ contract HackQuestNFT is ERC721 {
     EnumerableSet.AddressSet private participants;
     EnumerableSet.AddressSet private participantContracts;
 
-    uint256 nftId;
-    
+    uint256 public nftId;
 
     error NotContract(address contractAddr);
 

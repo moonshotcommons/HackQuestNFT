@@ -1,90 +1,109 @@
-## Foundry
+# Pharos Workshop Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Project Overview
+This is an ERC721-compliant NFT contract project that enables users to mint NFTs for free by deploying smart contracts.
 
-Foundry consists of:
+### Key Features
+- Built on ERC721 standard
+- Free NFT minting
+- Fully compatible with Pharos chain
+- One NFT per user limit
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### Minting Requirements
+Users must successfully deploy a contract on the Pharos chain and use that contract address to mint their NFT.
 
-## Documentation
+## Development Environment Setup
 
-https://book.getfoundry.sh/
+### 1. Installing Foundry
+Foundry is a fast, portable toolkit for Ethereum development written in Rust.
 
-## Usage
+```bash
+# Download Foundry installer
+curl -L https://foundry.paradigm.xyz | bash
 
-### Build
-
-```shell
-$ forge build
+# Install forge, cast, anvil, and other tools
+foundryup
 ```
 
-### Test
+After installation, follow the terminal prompts to configure your environment variables.
 
-```shell
-$ forge test
+Verify the installation:
+```bash
+forge --version
 ```
 
-### 设置环境变量
+> **Note**: Windows users must install within WSL. For detailed installation instructions, refer to the [Foundry Book](https://book.getfoundry.sh/?open_in_browser=true)
+
+### 2. Pharos Devnet Configuration
+| Parameter | Value |
+|-----------|-------|
+| Chain Name | Pharos Devnet |
+| Chain ID | 50002 |
+| RPC URL | https://devnet.dplabs-internal.com |
+| Block Explorer | https://pharosscan.xyz/ |
+| Currency Symbol | ETH |
+
+## Project Setup
+
+### 1. Initialize Project
+```bash
+forge init MyNFT
+cd MyNFT
 ```
-# 账户地址
-export PHA_DEMO=0x6c49d46cf7267A3De0A698cab95792BF69c91aFC
-# 部署账户私钥
+
+### 2. Install Dependencies
+```bash
+forge install OpenZeppelin/openzeppelin-contracts --no-git --no-commit
+```
+
+### 3. Project File Configuration
+1. Rename `src/Counter.sol` to `src/MyNFT.sol` and copy the code from `src/HackQuestNFT.sol` into `MyNFT.sol`
+2. Rename `test/Counter.t.sol` to `src/MyNFT.t.sol` and copy the code from `src/HackQuestNFT.t.sol` into `MyNFT.t.sol`
+3. Delete or comment out `script/Counter.s.sol`
+
+## Development Workflow
+
+### Compilation and Testing
+```bash
+# Compile contracts
+forge build
+
+# Run tests
+forge test
+```
+
+### Contract Deployment
+
+#### Environment Variable Setup
+```bash
+# Deployment account address
+export PHA_DEMO=0x6c49....
+# Deployment account private key
 export PRIVATE_KEY=0x.....
-# Arbitrum Sepolia RPC
-export ARB_RPC=https://sepolia-rollup.arbitrum.io/rpc
-export ETHERSCAN_API_KEY=...
+# Pharos RPC
+export PHA_RPC=https://devnet.dplabs-internal.com
 ```
 
-### 部署合约
-```
-# 部署 HackQuestNFT 合约
+#### Deployment Command
+```bash
 forge create \
-    --rpc-url $ARB_RPC \
+    --rpc-url $PHA_RPC \
     --private-key $PRIVATE_KEY \
     --broadcast \
-    src/HackQuestNFT.sol:HackQuestNFT \
-    --constructor-args "HackQuest" "HQ"
-
-forge create --rpc-url $ARB_RPC --private-key $PRIVATE_KEY --broadcast  --verify --etherscan-api-key $ETHERSCAN_API_KEY src/AutoTimelock.sol:AutoTimelock --constructor-args 0xF54C5b9c05C2dE971f427056Ae4a6e0f1b745D66
+    src/MyNFT.sol:MyNFT \
+    --constructor-args "MyNFT" "MT"
 ```
 
-### Format
+## Claiming Your NFT
+1. Visit [Pharos Workshop](https://nft-front-lilac.vercel.app/)
+2. Connect your wallet (ensure Pharos Devnet is configured and you have test tokens)
+3. Use your deployed contract address to claim the NFT
 
-```shell
-$ forge fmt
-```
+Alternatively, use cast CLI to claim:
+```bash
+export YOUR_PRIVATE_KEY=0x82.....
+export PHA_RPC=https://devnet.dplabs-internal.com
+export HQNFT=0xCD7b9304C6ce5531d92B3Ea481f62851C533825D
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+cast send $HQNFT "mint(address)" $YOUR_NFT_ADDRESS --rpc-url $PHA_RPC --private-key $YOUR_PRIVATE_KEY
 ```
