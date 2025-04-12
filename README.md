@@ -95,7 +95,7 @@ forge create \
 ```
 
 ## Claiming Your NFT
-1. Visit [Pharos Workshop](https://nft-front-lilac.vercel.app/)
+1. Visit [Pharos Workshop](https://pharos-workshop-hz.vercel.app/)
 2. Connect your wallet (ensure Pharos Devnet is configured and you have test tokens)
 3. Use your deployed contract address to claim the NFT
 
@@ -103,7 +103,11 @@ Alternatively, use cast CLI to claim:
 ```bash
 export YOUR_PRIVATE_KEY=0x82.....
 export PHA_RPC=https://devnet.dplabs-internal.com
-export HQNFT=0xCD7b9304C6ce5531d92B3Ea481f62851C533825D
+export HQNFT=0x392f2D9e41658bc8bed30f9FfbcaAE3eEE5eBF72
+
+# ⚠️ Important Notes:
+# 1. This command calls the HQNFT contract, not your deployed contract. YOUR_NFT_ADDRESS should be your contract address
+# 2. Each address can only mint once. Subsequent attempts will fail
 
 cast send $HQNFT "mint(address)" $YOUR_NFT_ADDRESS --rpc-url $PHA_RPC --private-key $YOUR_PRIVATE_KEY
 ```

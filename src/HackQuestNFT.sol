@@ -43,7 +43,8 @@ contract HackQuestNFT is ERC721 {
 
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://bafybeiffw5q6qlg7gcrqtkbb6ttykptsnhpxafg6k4ouaxbo5xrrfu4djm/";
+        // return "ipfs://bafybeiffw5q6qlg7gcrqtkbb6ttykptsnhpxafg6k4ouaxbo5xrrfu4djm/";
+        return "ipfs://bafybeie73zvsyhul6iask2ji6j7ku2wy5cztxlckgbsbe3khexj2zhceim/";
     }
 
     function allParticipants() public view returns (address[] memory) {
