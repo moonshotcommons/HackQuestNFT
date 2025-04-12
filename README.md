@@ -90,7 +90,7 @@ forge create \
     --rpc-url $PHA_RPC \
     --private-key $PRIVATE_KEY \
     --broadcast \
-    src/MyNFT.sol:MyNFT \
+    src/MyNFT.sol:HackQuestNFT \
     --constructor-args "MyNFT" "MT"
 ```
 
