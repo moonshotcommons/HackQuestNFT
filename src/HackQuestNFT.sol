@@ -43,7 +43,7 @@ contract HackQuestNFT is ERC721 {
 
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://salmon-total-owl-496.mypinata.cloud/ipfs/bafybeihqrqwbdl73shmpubeihwlikp6nvmdpysq7bwtuzsh4kscnfjqyze/";
+        return "ipfs://bafybeiffw5q6qlg7gcrqtkbb6ttykptsnhpxafg6k4ouaxbo5xrrfu4djm/";
     }
 
     function allParticipants() public view returns (address[] memory) {
